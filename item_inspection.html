@@ -1,0 +1,186 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Inspection | {{ item.name }}</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <span class="logo-mark">R</span>
+
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+
+        </div>
+
+        <a
+            href="{% url 'item_detail' item.id %}"
+            class="login-btn"
+        >
+            ← Back to Item
+        </a>
+
+    </nav>
+
+
+    <main class="inspection-page">
+
+        <div class="inspection-container">
+
+            <div class="eyebrow">
+                <span class="pulse"></span>
+                AI VISUAL INSPECTION
+            </div>
+
+            <h1>
+                Inspect before
+                <span>you buy.</span>
+            </h1>
+
+            <p class="inspection-intro">
+                AI has analyzed the visible condition of this item.
+            </p>
+
+
+            {% if error %}
+
+                <div class="inspection-error">
+                    {{ error }}
+                </div>
+
+            {% else %}
+
+                <div class="inspection-layout">
+
+
+                    <!-- IMAGE -->
+
+                    <div class="inspection-image-wrapper">
+
+                        <img
+                            src="{{ item.image.url }}"
+                            class="inspection-image"
+                            alt="{{ item.name }}"
+                        >
+
+
+                        {% for issue in inspection.issues %}
+
+                            <div
+                                class="issue-box"
+                                style="
+                                    top: {{ issue.box_2d.0|floatformat:2 }}%;
+                                    left: {{ issue.box_2d.1|floatformat:2 }}%;
+                                    height: calc({{ issue.box_2d.2|floatformat:2 }}% - {{ issue.box_2d.0|floatformat:2 }}%);
+                                    width: calc({{ issue.box_2d.3|floatformat:2 }}% - {{ issue.box_2d.1|floatformat:2 }}%);
+                                "
+                            >
+
+                                <span class="issue-label">
+                                    ⚠ {{ issue.label }}
+                                </span>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- REPORT -->
+
+                    <div class="inspection-report">
+
+                        <span class="report-label">
+                            AI ASSESSMENT
+                        </span>
+
+                        <h2>
+                            {{ inspection.condition }}
+                        </h2>
+
+                        <p>
+                            {{ inspection.summary }}
+                        </p>
+
+
+                        <div class="issues-list">
+
+                            {% if inspection.issues %}
+
+                                <h3>
+                                    Potential concerns
+                                </h3>
+
+                                {% for issue in inspection.issues %}
+
+                                    <div class="issue-card">
+
+                                        <strong>
+                                            ⚠ {{ issue.label }}
+                                        </strong>
+
+                                        <p>
+                                            {{ issue.description }}
+                                        </p>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <div class="no-issues">
+
+                                    ✓ No obvious visible issues detected.
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="inspection-note">
+
+                            AI-assisted visual inspection only.
+                            Hidden defects cannot be verified from
+                            an image.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,235 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Your Matches | Refill</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <span class="logo-mark">R</span>
+
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+
+        </div>
+
+
+        <a
+            href="{% url 'home' %}"
+            class="back-link"
+        >
+            ← Home
+        </a>
+
+    </nav>
+
+
+    <main class="matches-page">
+
+        <div class="matches-container">
+
+
+            <!-- Header -->
+
+            <div class="matches-header">
+
+                <div>
+
+                    <div class="eyebrow">
+
+                        <span class="pulse"></span>
+
+                        YOUR MATCHES
+
+                    </div>
+
+
+                    <h1>
+                        We found some
+                        <span>good options.</span>
+                    </h1>
+
+
+                    <p>
+
+                        Based on your need for
+                        <strong>{{ need.get_category_display }}</strong>
+                        under
+                        <strong>₹{{ need.max_budget }}</strong>.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Results -->
+
+            {% if matches %}
+
+                <div class="matches-grid">
+
+                    {% for item in matches %}
+
+                        <article class="match-card">
+
+
+                            <!-- Image -->
+
+                            <div class="match-image">
+
+                                {% if item.image %}
+
+                                    <img
+                                        src="{{ item.image.url }}"
+                                        alt="{{ item.name }}"
+                                    >
+
+                                {% else %}
+
+                                    <div class="no-image">
+                                        📦
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- Content -->
+
+                            <div class="match-content">
+
+
+                                <div class="match-category">
+
+                                    {{ item.get_category_display }}
+
+                                </div>
+
+
+                                <h2>
+                                    {{ item.name }}
+                                </h2>
+
+
+                                <p class="match-description">
+
+                                    {{ item.description }}
+
+                                </p>
+
+
+                                <div class="match-bottom">
+
+
+                                    <div>
+
+                                        <span class="condition">
+
+                                            {{ item.get_condition_display }}
+
+                                        </span>
+
+                                        <div class="match-price">
+
+                                            ₹{{ item.price }}
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <a
+    href="{% url 'item_detail' item.id %}"
+    class="view-item-btn"
+>
+    View Item →
+</a>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- No Results -->
+
+                <div class="no-matches">
+
+                    <div class="no-match-icon">
+                        ✨
+                    </div>
+
+
+                    <h2>
+                        Nothing matches yet.
+                    </h2>
+
+
+                    <p>
+
+                        We couldn't find an available item
+                        within your budget right now.
+
+                        Try increasing your budget or
+                        checking again later.
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'create_need' %}"
+                        class="form-submit"
+                    >
+                        Try Another Need →
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </main>
+
+
+</body>
+
+</html>

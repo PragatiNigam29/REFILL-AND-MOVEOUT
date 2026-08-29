@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Move-Out | Refill</title>
+
+    <link rel="stylesheet"
+          href="{% static 'marketplace/css/style.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-mark">R</span>
+            <span>Refill<span class="logo-accent">.</span></span>
+        </div>
+
+        <a href="{% url 'home' %}" class="back-link">
+            ← Back to home
+        </a>
+
+    </nav>
+
+
+    <main class="form-page">
+
+        <div class="form-container">
+
+            <div class="form-intro">
+
+                <div class="eyebrow">
+                    <span class="pulse"></span>
+                    MOVING OUT
+                </div>
+
+                <h1>
+                    Give your things
+                    <span>a second life.</span>
+                </h1>
+
+                <p>
+                    Create your Move-Out and let the next batch
+                    discover what you're leaving behind.
+                </p>
+
+            </div>
+
+
+            <form method="POST" class="moveout-form">
+
+                {% csrf_token %}
+
+                <div class="field">
+
+                    <label for="title">
+                        Move-Out title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="e.g. Moving out after graduation"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="move_out_date">
+                        When are you moving out?
+                    </label>
+
+                    <input
+                        type="date"
+                        id="move_out_date"
+                        name="move_out_date"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit" class="form-submit">
+                    Create my Move-Out
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <div class="form-tip">
+
+                <span>💡</span>
+
+                <p>
+                    You can add multiple items after creating
+                    your Move-Out.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

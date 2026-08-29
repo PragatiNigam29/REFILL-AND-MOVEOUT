@@ -1,0 +1,253 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Item | Refill</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-mark">R</span>
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+        </div>
+
+        <a
+            href="{% url 'moveout_detail' move_out.id %}"
+            class="back-link"
+        >
+            ← Back to Move-Out
+        </a>
+
+    </nav>
+
+
+    <main class="form-page">
+
+        <div class="form-container">
+
+            <div class="form-intro">
+
+                <div class="eyebrow">
+                    <span class="pulse"></span>
+                    ADD AN ITEM
+                </div>
+
+                <h1>
+                    What are you
+                    <span>passing on?</span>
+                </h1>
+
+                <p>
+                    Add something useful that another student
+                    might need.
+                </p>
+
+            </div>
+
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                class="moveout-form"
+            >
+
+                {% csrf_token %}
+
+                <div class="photo-upload">
+
+    <div class="photo-preview" id="photoPreview">
+        📸
+    </div>
+
+    <div class="photo-content">
+
+        <h3 id="photoTitle">
+            Add a photo
+        </h3>
+
+        <p id="photoText">
+            Take a clear photo of the item.
+        </p>
+
+        <label for="image" class="photo-btn">
+            Choose Photo
+        </label>
+
+        <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+            hidden
+        >
+
+    </div>
+
+</div>
+
+                <div class="field">
+
+                    <label for="name">
+                        Item Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="e.g. Scientific Calculator"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="category">
+                        Category
+                    </label>
+
+                    <select
+                        id="category"
+                        name="category"
+                        required
+                    >
+                        <option value="">Choose category</option>
+                        <option value="books">Books</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="furniture">Furniture</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="sports">Sports</option>
+                        <option value="hostel">
+                            Hostel Essentials
+                        </option>
+                        <option value="other">Other</option>
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="condition">
+                        Condition
+                    </label>
+
+                    <select
+                        id="condition"
+                        name="condition"
+                        required
+                    >
+                        <option value="">Choose condition</option>
+                        <option value="new">New</option>
+                        <option value="like_new">Like New</option>
+                        <option value="good">Good</option>
+                        <option value="fair">Fair</option>
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="price">
+                        Your Price (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="price"
+                        name="price"
+                        min="0"
+                        placeholder="e.g. 400"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5"
+                        placeholder="Tell students about the item..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="form-submit"
+                >
+                    Add Item
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+    <script>
+
+const imageInput = document.getElementById("image");
+const photoPreview = document.getElementById("photoPreview");
+const photoTitle = document.getElementById("photoTitle");
+const photoText = document.getElementById("photoText");
+
+imageInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    const imageURL = URL.createObjectURL(file);
+
+    photoPreview.innerHTML = "";
+
+    const img = document.createElement("img");
+
+    img.src = imageURL;
+    img.alt = "Selected item photo";
+
+    photoPreview.appendChild(img);
+
+    photoTitle.innerHTML =
+        "Photo added <span class='photo-check'>✓</span>";
+
+    photoText.textContent =
+        file.name + " is ready to upload.";
+
+});
+
+</script>
+
+</body>
+
+</html>

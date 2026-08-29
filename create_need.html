@@ -1,0 +1,248 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>I'm Moving In | Refill</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <span class="logo-mark">R</span>
+
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+
+        </div>
+
+
+        <a
+            href="{% url 'home' %}"
+            class="back-link"
+        >
+            ← Back to home
+        </a>
+
+    </nav>
+
+
+    <!-- Main -->
+
+    <main class="form-page">
+
+        <div class="form-container">
+
+
+            <!-- Introduction -->
+
+            <div class="form-intro">
+
+                <div class="eyebrow">
+
+                    <span class="pulse"></span>
+
+                    MOVING IN
+
+                </div>
+
+
+                <h1>
+
+                    Tell us what
+
+                    <span>you need.</span>
+
+                </h1>
+
+
+                <p>
+
+                    Instead of endlessly searching,
+                    tell us what you're looking for.
+                    We'll help you find it on campus.
+
+                </p>
+
+            </div>
+
+
+            <!-- Need Form -->
+
+            <form
+                method="POST"
+                class="moveout-form"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- Category -->
+
+                <div class="field">
+
+                    <label for="category">
+                        What are you looking for?
+                    </label>
+
+
+                    <select
+                        id="category"
+                        name="category"
+                        required
+                    >
+
+                        <option value="">
+                            Choose a category
+                        </option>
+
+                        <option value="books">
+                            📚 Books
+                        </option>
+
+                        <option value="electronics">
+                            💻 Electronics
+                        </option>
+
+                        <option value="furniture">
+                            🪑 Furniture
+                        </option>
+
+                        <option value="clothing">
+                            👕 Clothing
+                        </option>
+
+                        <option value="sports">
+                            ⚽ Sports
+                        </option>
+
+                        <option value="hostel">
+                            🏠 Hostel Essentials
+                        </option>
+
+                        <option value="other">
+                            📦 Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Description -->
+
+                <div class="field">
+
+                    <label for="description">
+                        What exactly do you need?
+                    </label>
+
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5"
+                        placeholder="e.g. I need CSE 2nd-year textbooks in good condition..."
+                        required
+                    ></textarea>
+
+
+                    <small class="field-hint">
+
+                        Be specific. Better details =
+                        better matches.
+
+                    </small>
+
+                </div>
+
+
+                <!-- Budget -->
+
+                <div class="field">
+
+                    <label for="max_budget">
+                        Maximum budget
+                    </label>
+
+
+                    <div class="price-input">
+
+                        <span>₹</span>
+
+                        <input
+                            type="number"
+                            id="max_budget"
+                            name="max_budget"
+                            min="0"
+                            placeholder="500"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="form-submit"
+                >
+
+                    Find My Matches
+
+                    <span>→</span>
+
+                </button>
+
+            </form>
+
+
+            <!-- Tip -->
+
+            <div class="form-tip">
+
+                <span>✨</span>
+
+                <p>
+
+                    We'll look for available items
+                    that fit your category and budget.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+</body>
+
+</html>

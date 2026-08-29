@@ -1,0 +1,352 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | Refill</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- Navbar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <span class="logo-mark">R</span>
+
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+
+        </div>
+
+
+        <div class="nav-actions">
+
+            <span class="welcome-user">
+                Hi, {{ user.username }}
+            </span>
+
+            <a
+                href="{% url 'logout' %}"
+                class="login-btn"
+            >
+                Log out
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="dashboard-page">
+
+        <div class="dashboard-container">
+
+
+            <!-- Header -->
+
+            <div class="dashboard-header">
+
+                <div>
+
+                    <div class="eyebrow">
+
+                        <span class="pulse"></span>
+
+                        YOUR CAMPUS
+
+                    </div>
+
+
+                    <h1>
+                        Your
+                        <span>dashboard.</span>
+                    </h1>
+
+
+                    <p>
+                        Manage your move-outs and see who's
+                        interested in your items.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="{% url 'create_moveout' %}"
+                    class="dashboard-add-btn"
+                >
+                    + New Move Out
+                </a>
+
+            </div>
+
+
+            <!-- Stats -->
+
+            <!-- Stats -->
+
+<div class="dashboard-stats">
+
+    <div class="stat-card">
+
+        <span>
+            MOVE-OUTS
+        </span>
+
+        <strong>
+            {{ move_outs|length }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span>
+            ITEMS LISTED
+        </span>
+
+        <strong>
+            {{ total_items }}
+        </strong>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span>
+            INTERESTS
+        </span>
+
+        <strong>
+            {{ total_interests }}
+        </strong>
+
+    </div>
+
+</div>
+
+            <!-- Move Outs -->
+
+            <section class="dashboard-section">
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span>
+                            YOUR LISTINGS
+                        </span>
+
+                        <h2>
+                            Move-outs
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                {% if move_outs %}
+
+                    <div class="dashboard-moveouts">
+
+                        {% for move_out in move_outs %}
+
+                            <div class="dashboard-moveout-card">
+
+
+                                <div class="moveout-card-header">
+
+                                    <div>
+
+                                        <span class="moveout-status">
+
+                                            {{ move_out.get_status_display }}
+
+                                        </span>
+
+
+                                        <h3>
+
+                                            {{ move_out.title }}
+
+                                        </h3>
+
+                                    </div>
+
+
+                                    <span class="moveout-date">
+
+                                        {{ move_out.move_out_date }}
+
+                                    </span>
+
+                                </div>
+
+
+                                <!-- Items -->
+
+                                {% if move_out.items.all %}
+
+                                    <div class="dashboard-items">
+
+                                        {% for item in move_out.items.all %}
+
+                                            <div class="dashboard-item">
+
+
+                                                <div class="dashboard-item-image">
+
+                                                    {% if item.image %}
+
+                                                        <img
+                                                            src="{{ item.image.url }}"
+                                                            alt="{{ item.name }}"
+                                                        >
+
+                                                    {% else %}
+
+                                                        📦
+
+                                                    {% endif %}
+
+                                                </div>
+
+
+                                                <div class="dashboard-item-info">
+
+                                                    <strong>
+                                                        {{ item.name }}
+                                                    </strong>
+
+                                                    <span>
+                                                        {{ item.get_condition_display }}
+                                                    </span>
+
+                                                </div>
+
+
+                                                <strong class="dashboard-item-price">
+
+                                                    ₹{{ item.price }}
+
+                                                </strong>
+
+
+                                                <a
+                                                    href="{% url 'item_interests' item.id %}"
+                                                    class="dashboard-interest"
+                                                >
+
+                                                    {{ item.interests.count }}
+                                                    interested →
+
+                                                </a>
+
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="dashboard-empty-items">
+
+                                        No items added yet.
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <div class="moveout-actions">
+
+                                    <a
+                                        href="{% url 'add_item' move_out.id %}"
+                                        class="dashboard-secondary-btn"
+                                    >
+                                        + Add Item
+                                    </a>
+
+                                    <a
+                                        href="{% url 'moveout_detail' move_out.id %}"
+                                        class="dashboard-secondary-btn"
+                                    >
+                                        View Move Out →
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <!-- Empty State -->
+
+                    <div class="dashboard-empty">
+
+                        <div class="dashboard-empty-icon">
+                            ✦
+                        </div>
+
+                        <h2>
+                            Nothing here yet.
+                        </h2>
+
+                        <p>
+                            Create your first Move Out and
+                            start giving your things a second life.
+                        </p>
+
+                        <a
+                            href="{% url 'create_moveout' %}"
+                            class="dashboard-add-btn"
+                        >
+                            Create My First Move Out →
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ item.name }} | Refill</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <span class="logo-mark">R</span>
+
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+
+        </div>
+
+
+        <a
+            href="{% url 'home' %}"
+            class="back-link"
+        >
+            ← Home
+        </a>
+
+    </nav>
+
+
+    <!-- Item Detail -->
+
+    <main class="item-detail-page">
+
+        <div class="item-detail-container">
+
+
+            <!-- Back -->
+
+            <a
+                href="javascript:history.back()"
+                class="detail-back"
+            >
+                ← Back to matches
+            </a>
+
+
+            <div class="item-detail-grid">
+
+
+                <!-- Image -->
+
+                <div class="detail-image">
+
+                    {% if item.image %}
+
+                        <img
+                            src="{{ item.image.url }}"
+                            alt="{{ item.name }}"
+                        >
+
+                    {% else %}
+
+                        <div class="detail-no-image">
+                            📦
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Information -->
+
+                <div class="detail-info">
+
+
+                    <div class="detail-category">
+
+                        {{ item.get_category_display }}
+
+                    </div>
+
+
+                    <h1>
+                        {{ item.name }}
+                    </h1>
+
+
+                    <div class="detail-price">
+
+                        ₹{{ item.price }}
+
+                    </div>
+
+
+                    <div class="detail-condition">
+
+                        <span>Condition</span>
+
+                        <strong>
+                            {{ item.get_condition_display }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-divider"></div>
+
+
+                    <div class="detail-section">
+
+                        <h3>
+                            About this item
+                        </h3>
+
+                        <p>
+                            {{ item.description }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- Move Out -->
+
+                    <div class="seller-card">
+
+                        <div class="seller-avatar">
+                            {{ item.move_out.student.user.username|first|upper }}
+                        </div>
+
+
+                        <div class="seller-info">
+
+                            <span>
+                                Listed through
+                            </span>
+
+                            <strong>
+                                {{ item.move_out.title }}
+                            </strong>
+
+                            <small>
+                                {{ item.move_out.student.branch }}
+                                ·
+                                Year {{ item.move_out.student.year }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+    method="POST"
+    action="{% url 'express_interest' item.id %}"
+>
+
+    {% csrf_token %}
+
+    <button
+        type="submit"
+        class="interest-btn"
+    >
+
+        I'm Interested
+
+        <span>→</span>
+
+    </button>
+    <a
+    href="{% url 'inspect_item' item.id %}"
+    class="ai-inspect-btn"
+>
+    ✦ AI Inspect Item
+</a>
+
+</form>
+
+
+                    <p class="safety-note">
+
+                        🔒 Connect through campus.
+                        Never share sensitive personal information.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+</body>
+
+</html>

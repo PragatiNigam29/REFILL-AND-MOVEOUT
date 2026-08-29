@@ -1,0 +1,288 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Interested Students | Refill</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <span class="logo-mark">R</span>
+
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+
+        </div>
+
+        <a
+            href="{% url 'item_detail' item.id %}"
+            class="back-link"
+        >
+            ← Back to Item
+        </a>
+
+    </nav>
+
+
+    <main class="interest-page">
+
+        <div class="interest-container">
+
+
+            <!-- HEADER -->
+
+            <div class="eyebrow">
+
+                <span class="pulse"></span>
+
+                INTERESTED STUDENTS
+
+            </div>
+
+
+            <h1>
+
+                People interested in
+
+                <span>{{ item.name }}</span>
+
+            </h1>
+
+
+            <!-- ITEM SUMMARY -->
+
+            <div class="interest-summary">
+
+                <strong>
+                    ₹{{ item.price }}
+                </strong>
+
+                <span>
+                    {{ item.get_condition_display }}
+                </span>
+
+            </div>
+
+
+            <!-- INTEREST LIST -->
+
+            {% if interests %}
+
+                <div class="interest-list">
+
+
+                    {% for interest in interests %}
+
+                        <div class="interest-card">
+
+
+                            <!-- AVATAR -->
+
+                            <div class="interest-avatar">
+
+                                {{ interest.student.user.username|first|upper }}
+
+                            </div>
+
+
+                            <!-- STUDENT INFO -->
+
+                            <div class="interest-info">
+
+                                <strong>
+
+                                    {{ interest.student.user.username }}
+
+                                </strong>
+
+
+                                <span>
+
+                                    {{ interest.student.branch }}
+
+                                    ·
+
+                                    Year {{ interest.student.year }}
+
+                                </span>
+
+
+                                <small>
+
+                                    Interested on
+
+                                    {{ interest.created_at|date:"d M Y, h:i A" }}
+
+                                </small>
+
+                            </div>
+
+
+                            <!-- ACTIONS -->
+
+                            <div class="interest-actions">
+
+
+                                {% if interest.status == 'pending' %}
+
+
+                                    <!-- PENDING -->
+
+                                    <div class="interest-status pending">
+
+                                        Pending
+
+                                    </div>
+
+
+                                    <div class="interest-buttons">
+
+
+                                        <!-- ACCEPT -->
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'accept_interest' interest.id %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="accept-btn"
+                                            >
+
+                                                Accept
+
+                                            </button>
+
+                                        </form>
+
+
+                                        <!-- REJECT -->
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'reject_interest' interest.id %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="reject-btn"
+                                            >
+
+                                                Reject
+
+                                            </button>
+
+                                        </form>
+
+
+                                    </div>
+
+
+                                {% elif interest.status == 'accepted' %}
+
+
+                                    <!-- ACCEPTED -->
+
+                                    <div class="interest-status accepted">
+
+                                        ✓ Accepted
+
+                                    </div>
+
+
+                                    <a
+                                        href="{% url 'contact_buyer' interest.id %}"
+                                        class="contact-btn"
+                                    >
+
+                                        ✉ Contact Buyer
+
+                                    </a>
+
+
+                                {% elif interest.status == 'rejected' %}
+
+
+                                    <!-- REJECTED -->
+
+                                    <div class="interest-status rejected">
+
+                                        ✕ Rejected
+
+                                    </div>
+
+
+                                {% endif %}
+
+
+                            </div>
+
+
+                        </div>
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <!-- EMPTY STATE -->
+
+                <div class="empty-interests">
+
+                    <div>
+                        ✨
+                    </div>
+
+                    <h2>
+                        No interest yet.
+                    </h2>
+
+                    <p>
+                        Students who are interested in
+                        this item will appear here.
+                    </p>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

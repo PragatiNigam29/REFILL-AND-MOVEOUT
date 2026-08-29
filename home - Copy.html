@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Refill & Move Out</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+    {% load static %}
+
+<link rel="stylesheet" href="{% static 'marketplace/css/style.css' %}">
+</head>
+
+<body>
+    {% if messages %}
+
+    <div class="messages-container">
+
+        {% for message in messages %}
+
+            <div class="success-message">
+                ✓ {{ message }}
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endif %}
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-mark">R</span>
+            <span>Refill<span class="logo-accent">.</span></span>
+        </div>
+
+        <div class="nav-links">
+    <a href="#">Browse</a>
+    <a href="#">How it works</a>
+    <<a href="{% url 'about' %}">
+    About
+</a>
+</div>
+
+       <div class="nav-actions">
+
+    {% if user.is_authenticated %}
+
+        <span class="welcome-user">
+            Hi, {{ user.username }}
+        </span>
+
+        <a
+            href="{% url 'logout' %}"
+            class="login-btn"
+        >
+            Log out
+        </a>
+
+    {% else %}
+
+        <a
+            href="{% url 'login' %}"
+            class="login-btn"
+        >
+            Log in
+        </a>
+
+        <a
+            href="{% url 'signup' %}"
+            class="signup-btn"
+        >
+            Join Campus
+        </a>
+
+    {% endif %}
+
+</div>
+<span class="welcome-user">
+    Hi, {{ user.username }}
+</span>
+<a
+    href="{% url 'dashboard' %}"
+    class="login-btn"
+>
+    Dashboard
+</a>
+
+
+    </nav>
+
+
+    <!-- Hero Section -->
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    <span class="pulse"></span>
+                    Built for campus life
+                </div>
+
+                <h1>
+                    One batch moves out.
+                    <span>The next moves in.</span>
+                </h1>
+
+                <p>
+                    Give your unused college essentials a second life.
+                    Find affordable items from students who have already
+                    walked the path you're starting.
+                </p>
+
+                <div class="hero-buttons">
+
+    <a href="{% url 'create_need' %}" class="primary-btn">
+    I'm Moving In
+    <span>→</span>
+</a>
+
+    <a href="{% url 'create_moveout' %}" class="secondary-btn">
+        I'm Moving Out
+        <span>↗</span>
+    </a>
+
+</div>
+
+                <div class="hero-note">
+                    <span>✓</span>
+                    Campus-first · Student-to-student · Affordable
+                </div>
+
+            </div>
+
+
+            <!-- Hero Visual -->
+            <div class="hero-visual">
+
+                <div class="floating-card card-one">
+
+                    <div class="item-icon">📚</div>
+
+                    <div>
+                        <strong>Engineering Books</strong>
+                        <small>2nd Year · CSE</small>
+                    </div>
+
+                    <span class="price">₹350</span>
+
+                </div>
+
+
+                <div class="main-card">
+
+                    <div class="card-top">
+                        <span class="tag">MOVING OUT</span>
+                        <span class="days">18 days left</span>
+                    </div>
+
+                    <div class="profile-row">
+
+                        <div class="avatar">A</div>
+
+                        <div>
+                            <strong>Arjun's Move Out</strong>
+                            <small>Final Year · CSE</small>
+                        </div>
+
+                    </div>
+
+                    <div class="item-grid">
+
+                        <div class="item">
+                            <div class="item-photo">🪑</div>
+                            <span>Study Chair</span>
+                            <strong>₹700</strong>
+                        </div>
+
+                        <div class="item">
+                            <div class="item-photo">🧮</div>
+                            <span>Calculator</span>
+                            <strong>₹400</strong>
+                        </div>
+
+                        <div class="item">
+                            <div class="item-photo">🚲</div>
+                            <span>Cycle</span>
+                            <strong>₹2,500</strong>
+                        </div>
+
+                        <div class="item">
+                            <div class="item-photo">📚</div>
+                            <span>CSE Books</span>
+                            <strong>₹300</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="floating-card card-two">
+
+                    <div class="match-circle">92%</div>
+
+                    <div>
+                        <strong>Great match!</strong>
+                        <small>Matches your needs</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Transition Section -->
+        <section class="transition">
+
+            <div class="section-heading">
+
+                <span>THE CAMPUS CYCLE</span>
+
+                <h2>
+                    What leaves one room
+                    <br>
+                    can start another.
+                </h2>
+
+            </div>
+
+            <div class="cycle">
+
+                <div class="cycle-step">
+                    <div class="number">01</div>
+                    <h3>Move Out</h3>
+                    <p>Graduating students list things they no longer need.</p>
+                </div>
+
+                <div class="cycle-line"></div>
+
+                <div class="cycle-step">
+                    <div class="number">02</div>
+                    <h3>Get Matched</h3>
+                    <p>We connect their items with students who need them.</p>
+                </div>
+
+                <div class="cycle-line"></div>
+
+                <div class="cycle-step">
+                    <div class="number">03</div>
+                    <h3>Move In</h3>
+                    <p>Freshers get useful essentials without paying full price.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+        <section class="cta">
+
+            <div>
+                <span>READY TO PASS IT ON?</span>
+
+                <h2>
+                    Your next useful thing
+                    <br>
+                    might already be on campus.
+                </h2>
+            </div>
+
+            <a
+    href="{% url 'create_need' %}"
+    class="cta-button"
+>
+    Explore Campus →
+</a>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="footer-logo">
+            Refill<span>.</span>
+        </div>
+
+        <p>
+            Making every college transition a little easier.
+        </p>
+
+        <span>© 2026 Refill & Move Out</span>
+
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Log in | Refill</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-mark">R</span>
+
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+        </div>
+
+        <a
+            href="{% url 'home' %}"
+            class="back-link"
+        >
+            ← Home
+        </a>
+
+    </nav>
+
+
+    <main class="auth-page">
+
+        <div class="auth-container">
+
+            <div class="auth-intro">
+
+                <div class="eyebrow">
+                    <span class="pulse"></span>
+                    WELCOME BACK
+                </div>
+
+                <h1>
+                    Welcome
+                    <span>back.</span>
+                </h1>
+
+                <p>
+                    Log in to continue exploring your campus marketplace.
+                </p>
+
+            </div>
+
+
+            <form
+                method="POST"
+                class="auth-form"
+            >
+
+                {% csrf_token %}
+
+                {% if error %}
+                    <div class="form-error">
+                        {{ error }}
+                    </div>
+                {% endif %}
+
+
+                <div class="field">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="form-submit"
+                >
+                    Log in
+                    <span>→</span>
+                </button>
+
+
+                <p class="auth-switch">
+
+                    Don't have an account?
+
+                    <a href="{% url 'signup' %}">
+                        Join Campus
+                    </a>
+
+                </p>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ move_out.title }} | Refill</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-mark">R</span>
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+        </div>
+
+        <a
+            href="{% url 'home' %}"
+            class="back-link"
+        >
+            ← Home
+        </a>
+
+    </nav>
+
+
+    <main class="dashboard">
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <div class="eyebrow">
+                    <span class="pulse"></span>
+                    ACTIVE MOVE-OUT
+                </div>
+
+                <h1>
+                    {{ move_out.title }}
+                </h1>
+
+                <p>
+                    Moving out on
+                    <strong>
+                        {{ move_out.move_out_date }}
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="status-badge">
+                ● Active
+            </div>
+
+        </div>
+
+
+        <section class="items-section">
+
+            <div class="items-header">
+
+                <div>
+
+                    <h2>Your Items</h2>
+
+                    <p>
+                        Give your things a second life.
+                    </p>
+
+                </div>
+
+                <a
+    href="{% url 'add_item' move_out.id %}"
+    class="add-item-btn"
+>
+    + Add Item
+</a>
+
+            </div>
+
+
+            {% if move_out.items.all %}
+
+                <div class="items-grid">
+
+                    {% for item in move_out.items.all %}
+
+                        <div class="dashboard-item">
+
+                            <div class="dashboard-item-image">
+                                {% if item.image %}
+                                    <img
+                                        src="{{ item.image.url }}"
+                                        alt="{{ item.name }}"
+                                    >
+                                {% else %}
+                                    📦
+                                {% endif %}
+                                <div class="item-interest">
+
+    <a
+        href="{% url 'item_interests' item.id %}"
+        class="interest-link"
+    >
+        {{ item.interests.count }}
+        {% if item.interests.count == 1 %}
+            student is interested
+        {% else %}
+            students are interested
+        {% endif %}
+
+        →
+    </a>
+
+</div>
+                            </div>
+
+                            <div class="dashboard-item-info">
+
+                                <span>
+                                    {{ item.get_category_display }}
+                                </span>
+
+                                <h3>
+                                    {{ item.name }}
+                                </h3>
+
+                                <strong>
+                                    ₹{{ item.price }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-items">
+
+                    <div class="empty-icon">
+                        📦
+                    </div>
+
+                    <h3>
+                        Nothing here yet.
+                    </h3>
+
+                    <p>
+                        Start by adding something
+                        you no longer need.
+                    </p>
+
+                    <a
+                        href="#"
+                        class="empty-add-btn"
+                    >
+                        + Add your first item
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <div class="dashboard-tip">
+
+            <span>♻</span>
+
+            <p>
+                Items listed here will be shown to students
+                looking for affordable campus essentials.
+            </p>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

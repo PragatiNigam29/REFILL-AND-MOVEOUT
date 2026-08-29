@@ -1,0 +1,309 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sign Up | Refill</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'marketplace/css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <span class="logo-mark">R</span>
+
+            <span>
+                Refill<span class="logo-accent">.</span>
+            </span>
+
+        </div>
+
+        <a
+            href="{% url 'login' %}"
+            class="login-btn"
+        >
+            Login
+        </a>
+
+    </nav>
+
+
+    <main class="auth-page">
+
+        <div class="auth-container">
+
+
+            <div class="eyebrow">
+
+                <span class="pulse"></span>
+
+                JOIN REFILL
+
+            </div>
+
+
+            <h1>
+
+                Create your
+
+                <span>account.</span>
+
+            </h1>
+
+
+            <p class="auth-intro">
+
+                Join your campus marketplace and
+                give useful items a second life.
+
+            </p>
+
+
+            {% if error %}
+
+                <div class="inspection-error">
+
+                    {{ error }}
+
+                </div>
+
+            {% endif %}
+
+
+            <form
+                method="POST"
+                class="auth-form"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- ACCOUNT DETAILS -->
+
+                <div class="form-section">
+
+                    <h3>
+                        Account Details
+                    </h3>
+
+
+                    <div class="form-group">
+
+                        <label for="username">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Choose a username"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="your@email.com"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- COLLEGE DETAILS -->
+
+                <div class="form-section">
+
+                    <h3>
+                        College Details
+                    </h3>
+
+
+                    <div class="form-group">
+
+                        <label for="college">
+                            College
+                        </label>
+
+                        <input
+                            type="text"
+                            id="college"
+                            name="college"
+                            placeholder="Enter your college"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="branch">
+                            Branch
+                        </label>
+
+                        <input
+                            type="text"
+                            id="branch"
+                            name="branch"
+                            placeholder="e.g. Computer Science"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="year">
+                                Current Year
+                            </label>
+
+                            <input
+                                type="number"
+                                id="year"
+                                name="year"
+                                min="1"
+                                max="6"
+                                placeholder="e.g. 2"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="graduation_year">
+                                Graduation Year
+                            </label>
+
+                            <input
+                                type="number"
+                                id="graduation_year"
+                                name="graduation_year"
+                                min="2024"
+                                max="2035"
+                                placeholder="e.g. 2028"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="hostel_status">
+                            Living Status
+                        </label>
+
+                        <select
+                            id="hostel_status"
+                            name="hostel_status"
+                            required
+                        >
+
+                            <option value="">
+                                Select your status
+                            </option>
+
+                            <option value="hostel">
+                                Hostel
+                            </option>
+
+                            <option value="day_scholar">
+                                Day Scholar
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                >
+
+                    Create Account →
+
+                </button>
+
+
+            </form>
+
+
+            <p class="auth-footer">
+
+                Already have an account?
+
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+
+            </p>
+
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
