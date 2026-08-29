@@ -19,7 +19,7 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 # Quick-start development settings
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-iff5b6@l3$rt909s7r_bpx49!c+1tmfv%@u&)-ci-ygm3&re02'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
